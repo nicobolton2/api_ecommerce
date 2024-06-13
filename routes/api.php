@@ -23,7 +23,7 @@ use App\Http\JWTController;
 Route::group(['prefix' => 'users'], function ($router) {
     Route::post('/register', 'JWTController@register');
     Route::post('/login', 'JWTController@login');
-    // Route::post('/logout', 'JWTController@logout');
+    Route::post('/logout', 'JWTController@logout');
     // Route::post('/refresh', 'JWTController@refresh');
     Route::post('/perfile', 'JWTController@perfile');
 });
