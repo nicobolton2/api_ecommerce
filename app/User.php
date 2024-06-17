@@ -24,6 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'state',
         'type_user',
+        'role_id',
     ];
 
     /**
@@ -44,6 +45,11 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

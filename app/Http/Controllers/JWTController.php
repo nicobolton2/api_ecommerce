@@ -125,11 +125,17 @@ class JWTController extends Controller
      */
     protected function respondWithToken(string $token): JsonResponse
     {
+        $user = auth('api')->user();
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth('api')->user(),
+            'user' => [
+                'name' => $user->name,
+                'surname' => $user->surname,
+                'email' => $user->email,
+                'role' => $user->role,
+            ],
         ]);
     }
 }
