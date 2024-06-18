@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\JWTController;
+use App\Http\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,8 @@ Route::group(['prefix' => 'users'], function ($router) {
 
     Route::post('/login', 'JWTController@loginAdmin');
     Route::post('/login_ecommerce', 'JWTController@loginEcommerce');
+    
+    Route::group(['prefix' => 'my'], function ($router) {
+        Route::post('/register', 'UserController@store');
+    });
 });

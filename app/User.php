@@ -27,6 +27,12 @@ class User extends Authenticatable implements JWTSubject
         'role_id',
     ];
 
+    public function setPasswordAttribute($password){
+        if($password){
+            $this->attributes["password"] = bcrypt($password);
+        }
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
