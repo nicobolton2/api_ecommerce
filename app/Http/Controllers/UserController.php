@@ -20,9 +20,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $state = $request->get('state');
+        $search = $request->get('search');
+        // $user = User::where("state",$state)->where("name","like","%".$search."%")->orWhere("surname","like","%".$search."%")->where("type_user",2)->paginate(20);
+
+        $users = User::filterAdvance($state,$search)->where("type_user",2)->paginate(20);
+
+        return response()->json([
+            "total" => $users->total(),
+            "users" => $users,
+        ]);
     }
 
     /**

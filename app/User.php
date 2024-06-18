@@ -75,5 +75,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function scopefilterAdvance($query,$state,$search){
+        if($state){
+            $query->where("state",$state);
+        }
+        if($search){
+            $query->where("name","like","%".$search."%")->orWhere("surname","like","%".$search."%");
+        }
+        return $query;
+    }
 }
 
