@@ -26,7 +26,7 @@ class UserController extends Controller
         $search = $request->get('search');
         // $user = User::where("state",$state)->where("name","like","%".$search."%")->orWhere("surname","like","%".$search."%")->where("type_user",2)->paginate(20);
 
-        $users = User::filterAdvance($state,$search)->where("type_user",2)->paginate(20);
+        $users = User::filterAdvance($state,$search)->where("type_user",2)->orderBy("id", "desc")->paginate(20);
 
         return response()->json([
             "total" => $users->total(),
@@ -57,7 +57,7 @@ class UserController extends Controller
             return response()->json(["message" => 400]);
         }else{
             $user = User::create($request->all());
-            return response()->json(["message" => 200]);
+            return response()->json(["message" => 200, "user" => $user]);
         }
     }
 
@@ -99,7 +99,7 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->update($request->all());
 
-            return response()->json(["message" => 200]);
+            return response()->json(["message" => 200, "user" => $user]);
         }
     }
 
