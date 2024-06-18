@@ -31,7 +31,9 @@ Route::group(['prefix' => 'users'], function ($router) {
     Route::post('/login_ecommerce', 'JWTController@loginEcommerce');
     
     Route::group(['prefix' => 'admin'], function ($router) {
-        Route::post('/register', 'UserController@store');
         Route::get('/all', 'UserController@index');
+        Route::post('/register', 'UserController@store');
+        Route::put('/update/{id}', 'UserController@update');
+        Route::delete('/delete/{id}', 'UserController@destroy');
     });
 });

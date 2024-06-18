@@ -92,7 +92,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('email',$request->email)->where('id',"<>",$id)->first();
+        if($user){
+            return response()->json(["message" => 400]);
+        }else{
+            $user = User::findOrFail($id);
+            $user->update($request->all());
+
+            return response()->json(["message" => 200]);
+        }
     }
 
     /**
@@ -103,6 +111,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(["message" => 200]);
     }
 }
